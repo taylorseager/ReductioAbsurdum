@@ -40,7 +40,7 @@ while (choice != "0")
     }
     else if (choice == "3")
     {
-        //UpdateProduct();
+        UpdateProduct();
     }
     else if (choice == "4")
     {
@@ -88,6 +88,17 @@ void ListAllProducts()
     }
 }
 
+void ListAllAvailableProducts()
+{
+    var availableProducts = products.Where(product => !product.Sold).ToList();
+
+    foreach (var product in availableProducts)
+    {
+        Console.WriteLine($"{ProductDetails(product)}");
+    }
+}
+
+
 void NewProduct()
 {
     Console.WriteLine("Enter the details for the new product:");
@@ -109,10 +120,10 @@ void NewProduct()
     Console.WriteLine($"The product {newProduct.Name} has been added!");
 }
 
-//void UpdateProduct()
-//{
-
-//}
+void UpdateProduct()
+{
+    ListAllAvailableProducts();
+}
 
 //void DeleteProduct()
 //{

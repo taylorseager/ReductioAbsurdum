@@ -35,15 +35,15 @@ while (choice != "0")
     }
     else if (choice == "2")
     {
-        NewProduct();
+        //NewProduct();
     }
     else if (choice == "3")
     {
-        UpdateProduct();
+        //UpdateProduct();
     }
     else if (choice == "4")
     {
-        DeleteProduct();
+        //DeleteProduct();
     }
     else
     {
@@ -79,7 +79,7 @@ if (choice != "0")
     }
 }
 
-void ListAllProducts();
+void ListAllProducts()
 {
     foreach (var product in products)
     {
@@ -87,24 +87,24 @@ void ListAllProducts();
     }
 }
 
-void NewProduct();
-{
+//void NewProduct()
+//{
 
-}
+//}
 
-void UpdateProduct();
-{
+//void UpdateProduct()
+//{
 
-}
+//}
 
-void DeleteProduct();
-{
+//void DeleteProduct()
+//{
 
-}
+//}
 
 
 string ProductDetails(Product product)
 {
     string availability = product.Sold ? "not available" : "available";
-    return $"{product.Name} is ${product.Price} and is {availability}";
+    return $"{product.Name} is ${product.Price} while belonging to {product.ProductTypeId} and is {availability}";
 }

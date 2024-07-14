@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Drawing;
 using System.Numerics;
 
 List<Product> products = new List<Product>()
@@ -35,7 +36,7 @@ while (choice != "0")
     }
     else if (choice == "2")
     {
-        //NewProduct();
+        NewProduct();
     }
     else if (choice == "3")
     {
@@ -87,10 +88,26 @@ void ListAllProducts()
     }
 }
 
-//void NewProduct()
-//{
+void NewProduct()
+{
+    Console.WriteLine("Enter the details for the new product:");
+    Console.WriteLine("Name: ");
+    string? name = Console.ReadLine().Trim();
 
-//}
+    Console.WriteLine("Asking Price: ");
+    decimal price;
+    while (!decimal.TryParse(Console.ReadLine().Trim(), out price)) ;
+
+    Console.WriteLine("Category: ");
+    int productTypeId;
+    while (!int.TryParse(Console.ReadLine().Trim(), out productTypeId)) ;
+
+
+    Product newProduct = new Product(name, price, sold: false, productTypeId);
+    products.Add(newProduct);
+
+    Console.WriteLine($"The product {newProduct.Name} has been added!");
+}
 
 //void UpdateProduct()
 //{
@@ -106,5 +123,5 @@ void ListAllProducts()
 string ProductDetails(Product product)
 {
     string availability = product.Sold ? "not available" : "available";
-    return $"{product.Name} is ${product.Price} while belonging to {product.ProductTypeId} and is {availability}";
+    return $"{product.Name} is ${product.Price} while belonging to category {product.ProductTypeId} and is {availability}.";
 }

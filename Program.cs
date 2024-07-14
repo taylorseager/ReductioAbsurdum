@@ -82,9 +82,9 @@ if (choice != "0")
 
 void ListAllProducts()
 {
-    foreach (var product in products)
+    for (int i = 0; i < products.Count; i++)
     {
-        Console.WriteLine($"{ProductDetails(product)}");
+        Console.WriteLine($"{i + 1}. {ProductDetails(products[i])}");
     }
 }
 
@@ -92,9 +92,9 @@ void ListAllAvailableProducts()
 {
     var availableProducts = products.Where(product => !product.Sold).ToList();
 
-    foreach (var product in availableProducts)
+    for (int i = 0; i < availableProducts.Count; i++)
     {
-        Console.WriteLine($"{ProductDetails(product)}");
+        Console.WriteLine($"{i + 1}. {ProductDetails(availableProducts[i])}");
     }
 }
 

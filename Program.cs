@@ -102,6 +102,7 @@ if (choice != "0")
 
 void ListAllProducts()
 {
+    Console.WriteLine("All products:");
     for (int i = 0; i < products.Count; i++)
     {
         Console.WriteLine($"{i + 1}. {ProductDetails(products[i])}");
@@ -110,8 +111,12 @@ void ListAllProducts()
 
 void ListAllAvailableProducts()
 {
+    Console.WriteLine("All available products:");
     List<Product> unsoldProducts = products.Where(p => !p.Sold).ToList();
-    Console.WriteLine($"{ProductDetails(unsoldProducts)}");
+    for (int i = 0; i < unsoldProducts.Count; i++)
+    {
+        Console.WriteLine($"{ProductDetails(unsoldProducts[i])}");
+    }
 }
 
 void ListAllCategories()

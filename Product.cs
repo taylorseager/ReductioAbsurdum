@@ -7,6 +7,14 @@
 		public bool Sold { get; set; }
 		public int ProductTypeId { get; set; }
         public DateTime DateStocked { get; set; }
+        public int DaysOnShelf
+        {
+            get
+            {
+                TimeSpan timeOnShelf = DateTime.Now - DateStocked;
+                return timeOnShelf.Days;
+            }
+        }
 
     public Product(string name, decimal price, bool sold, int productTypeId, DateTime dateStocked)
         {
@@ -14,7 +22,7 @@
             Price = price;
             Sold = sold;
             ProductTypeId = productTypeId;
-        DateStocked = dateStocked;
+            DateStocked = dateStocked;
         }
     }
 

@@ -6,11 +6,11 @@ using System.Numerics;
 
 List<Product> products = new List<Product>()
 {
-        new Product(name: "Nimbus 2000", price: 20.00M, sold: true, productTypeId: 3),
-        new Product(name: "Wandz 1400", price: 10.99M, sold: false, productTypeId: 4),
-        new Product(name: "Potions & More", price: 24.99M, sold: false, productTypeId: 2),
-        new Product(name: "Basic Black Cauldron", price: 30.00M, sold: false, productTypeId: 2),
-        new Product(name: "Quill & Ink Pack", price: 15.99M, sold: true, productTypeId: 3),
+        new Product(name: "Nimbus 2000", price: 20.00M, sold: true, productTypeId: 3, dateStocked:  new DateTime(2024, 07, 01)),
+        new Product(name: "Wandz 1400", price: 10.99M, sold: false, productTypeId: 4, dateStocked:  new DateTime(2024, 07, 01)),
+        new Product(name: "Potions & More", price: 24.99M, sold: false, productTypeId: 2, dateStocked:  new DateTime(2024, 07, 01)),
+        new Product(name: "Basic Black Cauldron", price: 30.00M, sold: false, productTypeId: 2, dateStocked:  new DateTime(2024, 07, 01)),
+        new Product(name: "Quill & Ink Pack", price: 15.99M, sold: true, productTypeId: 3, dateStocked:  new DateTime(2024, 07, 01)),
 };
 
 List<ProductTypeId> productTypes = new List<ProductTypeId>()

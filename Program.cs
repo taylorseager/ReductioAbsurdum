@@ -2,6 +2,7 @@
 
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Numerics;
 
 List<Product> products = new List<Product>()
@@ -137,8 +138,23 @@ void NewProduct()
     int productTypeId;
     while (!int.TryParse(Console.ReadLine().Trim(), out productTypeId));
 
+    Console.WriteLine("Date Stocked:");
+        DateTime dateStocked;
+    while (true)
+    {
+        try
+        {
+            dateStocked = DateTime.ParseExact(Console.ReadLine(), new[] { "MM/dd/yyyy"}, CultureInfo.InvariantCulture, DateTimeStyles.None);
+            break;
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid format, try again.");
+        }
+    }
 
-    Product newProduct = new Product(name, price, sold: false, productTypeId);
+
+    Product newProduct = new Product(name, price, sold: false, productTypeId, dateStocked);
     products.Add(newProduct);
 
     Console.WriteLine($"The product {newProduct.Name} has been added!");
@@ -254,5 +270,5 @@ void SearchByProductType()
 string ProductDetails(Product product)
 {
     string availability = product.Sold ? "not available" : "available";
-    return $"{product.Name} is ${product.Price} while belonging to category {product.ProductTypeId} and is {availability}.";
+    return $"{product.Name} is ${product.Price} while belonging to category {product.ProductTypeId} and is {availability}. It has been stocked for: {product.DaysOnShelf}";
 }

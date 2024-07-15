@@ -198,13 +198,29 @@ void UpdateProduct()
         {
             selectedProduct.ProductTypeId = newProductTypeId;
         }
+        Console.WriteLine("Enter when product was stocked (or press Enter to keep current):");
+        string inputDate = Console.ReadLine().Trim();
 
-        Console.WriteLine("Product updated successfully.");
+        if (!string.IsNullOrEmpty(inputDate))
+        {
+            DateTime newStockedDate;
+            if (DateTime.TryParseExact(inputDate, new[] { "MM/dd/yyyy" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out newStockedDate))
+            {
+                selectedProduct.DateStocked = newStockedDate;
+            }
+            else
+            {
+                Console.WriteLine("Invalid date format. Stocked date not updated.");
+            }
+        }
+
+        Console.WriteLine($"{selectedProduct.Name} updated successfully.");
         }
         else
         {
             Console.WriteLine("Invalid selection. Please choose a valid product number.");
         }
+
 }
 
 
@@ -270,5 +286,5 @@ void SearchByProductType()
 string ProductDetails(Product product)
 {
     string availability = product.Sold ? "not available" : "available";
-    return $"{product.Name} is ${product.Price} while belonging to category {product.ProductTypeId} and is {availability}. It has been stocked for: {product.DaysOnShelf}";
+    return $"{product.Name} is ${product.Price} while belonging to category {product.ProductTypeId} and is {availability}. It has been stocked for {product.DaysOnShelf} days.";
 }

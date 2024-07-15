@@ -32,10 +32,11 @@ while (choice != "0")
     Console.WriteLine(@"Choose an option:
                         0. Exit
                         1. View All Products
-                        2. Add Product
-                        3. Update a Product
-                        4. Delete Product
-                        5. Search for Product by Type");
+                        2. View All Available Products
+                        3. Add Product
+                        4. Update a Product
+                        5. Delete Product
+                        6. Search for Product by Type");
     choice = Console.ReadLine();
     if (choice == "0")
     {
@@ -47,17 +48,21 @@ while (choice != "0")
     }
     else if (choice == "2")
     {
-        NewProduct();
+        ListAllAvailableProducts();
     }
     else if (choice == "3")
     {
-        UpdateProduct();
+        NewProduct();
     }
     else if (choice == "4")
     {
-        DeleteProduct();
+        UpdateProduct();
     }
     else if (choice == "5")
+    {
+        DeleteProduct();
+    }
+    else if (choice == "6")
     {
         SearchByProductType();
     }
@@ -105,12 +110,8 @@ void ListAllProducts()
 
 void ListAllAvailableProducts()
 {
-    var availableProducts = products.Where(product => !product.Sold).ToList();
-
-    for (int i = 0; i < availableProducts.Count; i++)
-    {
-        Console.WriteLine($"{i + 1}. {ProductDetails(availableProducts[i])}");
-    }
+    List<Product> unsoldProducts = products.Where(p => !p.Sold).ToList();
+    Console.WriteLine($"{ProductDetails(unsoldProducts)}");
 }
 
 void ListAllCategories()

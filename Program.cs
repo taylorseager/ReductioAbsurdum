@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Diagnostics;
 using System.Drawing;
 using System.Numerics;
 
@@ -107,11 +108,11 @@ void NewProduct()
 
     Console.WriteLine("Asking Price: ");
     decimal price;
-    while (!decimal.TryParse(Console.ReadLine().Trim(), out price)) ;
+    while (!decimal.TryParse(Console.ReadLine().Trim(), out price));
 
     Console.WriteLine("Category: ");
     int productTypeId;
-    while (!int.TryParse(Console.ReadLine().Trim(), out productTypeId)) ;
+    while (!int.TryParse(Console.ReadLine().Trim(), out productTypeId));
 
 
     Product newProduct = new Product(name, price, sold: false, productTypeId);
@@ -123,7 +124,49 @@ void NewProduct()
 void UpdateProduct()
 {
     ListAllAvailableProducts();
+    Console.WriteLine("Please select a product to update:");
+    int chosenIndex;
+    while (!int.TryParse(Console.ReadLine().Trim(), out chosenIndex));
+
+    var availableProducts = products.Where(product => !product.Sold).ToList();
+
+    if (chosenIndex >= 1 && chosenIndex <= availableProducts.Count)
+    {
+        int selectedIndex = chosenIndex - 1;
+        var selectedProduct = availableProducts[selectedIndex];
+
+        Console.WriteLine($"Updating product: {selectedProduct.Name}");
+
+        Console.WriteLine("Enter new name (or press Enter to keep current):");
+        string newName = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(newName))
+        {
+            selectedProduct.Name = newName;
+        }
+
+        Console.WriteLine("Enter new price (or press Enter to keep current):");
+        decimal newPrice;
+        if (decimal.TryParse(Console.ReadLine().Trim(), out newPrice))
+        {
+            selectedProduct.Price = newPrice;
+        }
+
+        Console.WriteLine("Enter new product type ID (or press Enter to keep current):");
+        int newProductTypeId;
+
+        if (int.TryParse(Console.ReadLine().Trim(), out newProductTypeId))
+        {
+            selectedProduct.ProductTypeId = newProductTypeId;
+        }
+
+        Console.WriteLine("Product updated successfully.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid selection. Please choose a valid product number.");
+        }
 }
+
 
 //void DeleteProduct()
 //{

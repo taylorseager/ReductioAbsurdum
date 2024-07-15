@@ -14,5 +14,5 @@
             Sold = sold;
             ProductTypeId = productTypeId;
         }
-}
+    }
 

@@ -13,6 +13,14 @@ List<Product> products = new List<Product>()
         new Product(name: "Quill & Ink Pack", price: 15.99M, sold: true, productTypeId: 5),
 };
 
+List<ProductTypeId> productTypes = new List<ProductTypeId>()
+{
+    new ProductTypeId(id: 1, name: "Apparel"),
+    new ProductTypeId(id: 2, name: "Potions"),
+    new ProductTypeId(id: 3, name: "Enchanted Objects"),
+    new ProductTypeId(id: 4, name: "Wands"),
+};
+
 string greeting = @"Welcome to Reductio & Absurdum Magic Shop!
 How can we help you today?";
 Console.WriteLine(greeting);
@@ -25,7 +33,8 @@ while (choice != "0")
                         1. View All Products
                         2. Add Product
                         3. Update a Product
-                        4. Delete Product");
+                        4. Delete Product
+                        5. View All Categories");
     choice = Console.ReadLine();
     if (choice == "0")
     {
@@ -46,6 +55,10 @@ while (choice != "0")
     else if (choice == "4")
     {
         DeleteProduct();
+    }
+    else if (choice == "5")
+    {
+        ListAllCategories();
     }
     else
     {
@@ -99,6 +112,14 @@ void ListAllAvailableProducts()
     }
 }
 
+void ListAllCategories()
+{
+    for (int i = 0; i < productTypes.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {productTypes[i].Name}");
+    }
+}
+
 
 void NewProduct()
 {
@@ -110,7 +131,9 @@ void NewProduct()
     decimal price;
     while (!decimal.TryParse(Console.ReadLine().Trim(), out price));
 
-    Console.WriteLine("Category: ");
+    Console.WriteLine($"Category:");
+    ListAllCategories();
+
     int productTypeId;
     while (!int.TryParse(Console.ReadLine().Trim(), out productTypeId));
 

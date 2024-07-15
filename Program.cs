@@ -6,11 +6,11 @@ using System.Numerics;
 
 List<Product> products = new List<Product>()
 {
-        new Product(name: "Nimbus 2000", price: 20.00M, sold: true, productTypeId: 1),
-        new Product(name: "Wandz 1400", price: 10.99M, sold: false, productTypeId: 2),
-        new Product(name: "Potions & More", price: 24.99M, sold: false, productTypeId: 3),
-        new Product(name: "Basic Black Cauldron", price: 30.00M, sold: false, productTypeId: 4),
-        new Product(name: "Quill & Ink Pack", price: 15.99M, sold: true, productTypeId: 5),
+        new Product(name: "Nimbus 2000", price: 20.00M, sold: true, productTypeId: 3),
+        new Product(name: "Wandz 1400", price: 10.99M, sold: false, productTypeId: 4),
+        new Product(name: "Potions & More", price: 24.99M, sold: false, productTypeId: 2),
+        new Product(name: "Basic Black Cauldron", price: 30.00M, sold: false, productTypeId: 2),
+        new Product(name: "Quill & Ink Pack", price: 15.99M, sold: true, productTypeId: 3),
 };
 
 List<ProductTypeId> productTypes = new List<ProductTypeId>()
@@ -218,16 +218,38 @@ void DeleteProduct()
 
 void SearchByProductType()
 {
-    Console.WriteLine("Please enter category to search: ");
+    Console.WriteLine("Please enter category number to search: ");
+    ListAllCategories();
 
-    int chosenNumber;
-    while (!int.TryParse(Console.ReadLine().Trim(), out chosenNumber))
+    int productTypeSearch;
+    if (int.TryParse(Console.ReadLine(), out productTypeSearch) && productTypeSearch > 0 && productTypeSearch < products.Count)
     {
-        Console.WriteLine("Wrong. Try again. Please enter a whole number between 1 and 5:");
-
+        var matchingProducts = new List<Product>();
+        foreach (var product in products)
+        {
+            if (product.ProductTypeId == productTypeSearch)
+            {
+                matchingProducts.Add(product);
+            }
+        }
+        if (matchingProducts.Any())
+        {
+            Console.WriteLine($"Search results for category {productTypeSearch}:");
+            foreach (var product in matchingProducts)
+            {
+                Console.WriteLine(ProductDetails(product));
+            }
+        }
+        else
+        {
+            Console.WriteLine($"No products found for category {productTypeSearch}.");
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid category number.");
     }
 }
-
 
 string ProductDetails(Product product)
 {

@@ -45,7 +45,7 @@ while (choice != "0")
     }
     else if (choice == "4")
     {
-        //DeleteProduct();
+        DeleteProduct();
     }
     else
     {
@@ -168,10 +168,13 @@ void UpdateProduct()
 }
 
 
-//void DeleteProduct()
-//{
-
-//}
+void DeleteProduct()
+{
+    ListAllAvailableProducts();
+    Console.WriteLine("Please enter product number to delete:");
+    int chosenIndex;
+    while (!int.TryParse(Console.ReadLine().Trim(), out chosenIndex)) ;
+}
 
 
 string ProductDetails(Product product)

@@ -173,7 +173,23 @@ void DeleteProduct()
     ListAllAvailableProducts();
     Console.WriteLine("Please enter product number to delete:");
     int chosenIndex;
-    while (!int.TryParse(Console.ReadLine().Trim(), out chosenIndex)) ;
+    while (!int.TryParse(Console.ReadLine().Trim(), out chosenIndex));
+
+    var availableProducts = products.Where(product => !product.Sold).ToList();
+
+    if (chosenIndex >= 1 && chosenIndex <= availableProducts.Count)
+    {
+        int selectedIndex = chosenIndex - 1;
+        var selectedProduct = availableProducts[selectedIndex];
+      
+        products.Remove(selectedProduct);
+        Console.WriteLine($"{selectedProduct.Name} has been deleted successfully.");
+        
+    }
+    else
+    {
+        Console.Write("Inavlid selction.");
+    }
 }
 
 

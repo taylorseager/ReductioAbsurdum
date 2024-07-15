@@ -34,7 +34,7 @@ while (choice != "0")
                         2. Add Product
                         3. Update a Product
                         4. Delete Product
-                        5. View All Categories");
+                        5. Search for Product by Type");
     choice = Console.ReadLine();
     if (choice == "0")
     {
@@ -58,7 +58,7 @@ while (choice != "0")
     }
     else if (choice == "5")
     {
-        ListAllCategories();
+        SearchByProductType();
     }
     else
     {
@@ -175,6 +175,7 @@ void UpdateProduct()
         }
 
         Console.WriteLine("Enter new product type ID (or press Enter to keep current):");
+        ListAllCategories();
         int newProductTypeId;
 
         if (int.TryParse(Console.ReadLine().Trim(), out newProductTypeId))
@@ -212,6 +213,18 @@ void DeleteProduct()
     else
     {
         Console.Write("Inavlid selction.");
+    }
+}
+
+void SearchByProductType()
+{
+    Console.WriteLine("Please enter category to search: ");
+
+    int chosenNumber;
+    while (!int.TryParse(Console.ReadLine().Trim(), out chosenNumber))
+    {
+        Console.WriteLine("Wrong. Try again. Please enter a whole number between 1 and 5:");
+
     }
 }
 

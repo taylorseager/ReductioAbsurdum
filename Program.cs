@@ -218,14 +218,38 @@ void DeleteProduct()
 
 void SearchByProductType()
 {
-    Console.WriteLine("Please enter category to search: ");
+    Console.WriteLine("Please enter category number to search: ");
+    ListAllCategories();
 
-    int chosenNumber;
-    while (!int.TryParse(Console.ReadLine().Trim(), out chosenNumber))
+    int productTypeSearch;
+    if (int.TryParse(Console.ReadLine(), out productTypeSearch) && productTypeSearch > 0 && productTypeSearch < products.Count)
     {
-        Console.WriteLine("Wrong. Try again. Please enter a whole number between 1 and 5:");
-
+        var matchingProducts = new List<Product>();
+        foreach (var product in products)
+        {
+            if (product.ProductTypeId == productTypeSearch)
+            {
+                matchingProducts.Add(product);
+            }
+        }
     }
+    //int chosenNumber;
+    //while (!int.TryParse(Console.ReadLine().Trim(), out chosenNumber))
+
+    //List<Product> matchedProducts = products.Where(p => p.ProductTypeId == chosenNumber).ToList();
+
+    //if (matchedProducts.Any())
+    //{
+    //    Console.WriteLine($"Here are the products within {productTypes}.");
+    //    foreach (var matchedProduct in matchedProducts)
+    //    {
+    //        Console.WriteLine($"{ProductDetails(matchedProduct)}");
+    //    }
+    //else
+    //{
+    //    Console.WriteLine($"No products found within {chosenNumber}");
+    //}
+    //}
 }
 
 

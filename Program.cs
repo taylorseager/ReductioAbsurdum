@@ -2,15 +2,16 @@
 
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Numerics;
 
 List<Product> products = new List<Product>()
 {
-        new Product(name: "Nimbus 2000", price: 20.00M, sold: true, productTypeId: 3),
-        new Product(name: "Wandz 1400", price: 10.99M, sold: false, productTypeId: 4),
-        new Product(name: "Potions & More", price: 24.99M, sold: false, productTypeId: 2),
-        new Product(name: "Basic Black Cauldron", price: 30.00M, sold: false, productTypeId: 2),
-        new Product(name: "Quill & Ink Pack", price: 15.99M, sold: true, productTypeId: 3),
+        new Product(name: "Nimbus 2000", price: 20.00M, sold: true, productTypeId: 3, dateStocked:  new DateTime(2024, 07, 01)),
+        new Product(name: "Wandz 1400", price: 10.99M, sold: false, productTypeId: 4, dateStocked:  new DateTime(2024, 07, 01)),
+        new Product(name: "Potions & More", price: 24.99M, sold: false, productTypeId: 2, dateStocked:  new DateTime(2024, 07, 01)),
+        new Product(name: "Basic Black Cauldron", price: 30.00M, sold: false, productTypeId: 2, dateStocked:  new DateTime(2024, 07, 01)),
+        new Product(name: "Quill & Ink Pack", price: 15.99M, sold: true, productTypeId: 3, dateStocked:  new DateTime(2024, 07, 01)),
 };
 
 List<ProductTypeId> productTypes = new List<ProductTypeId>()
@@ -137,8 +138,23 @@ void NewProduct()
     int productTypeId;
     while (!int.TryParse(Console.ReadLine().Trim(), out productTypeId));
 
+    Console.WriteLine("Date Stocked:");
+        DateTime dateStocked;
+    while (true)
+    {
+        try
+        {
+            dateStocked = DateTime.ParseExact(Console.ReadLine(), new[] { "MM/dd/yyyy"}, CultureInfo.InvariantCulture, DateTimeStyles.None);
+            break;
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid format, try again.");
+        }
+    }
 
-    Product newProduct = new Product(name, price, sold: false, productTypeId);
+
+    Product newProduct = new Product(name, price, sold: false, productTypeId, dateStocked);
     products.Add(newProduct);
 
     Console.WriteLine($"The product {newProduct.Name} has been added!");
@@ -182,13 +198,29 @@ void UpdateProduct()
         {
             selectedProduct.ProductTypeId = newProductTypeId;
         }
+        Console.WriteLine("Enter when product was stocked (or press Enter to keep current):");
+        string inputDate = Console.ReadLine().Trim();
 
-        Console.WriteLine("Product updated successfully.");
+        if (!string.IsNullOrEmpty(inputDate))
+        {
+            DateTime newStockedDate;
+            if (DateTime.TryParseExact(inputDate, new[] { "MM/dd/yyyy" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out newStockedDate))
+            {
+                selectedProduct.DateStocked = newStockedDate;
+            }
+            else
+            {
+                Console.WriteLine("Invalid date format. Stocked date not updated.");
+            }
+        }
+
+        Console.WriteLine($"{selectedProduct.Name} updated successfully.");
         }
         else
         {
             Console.WriteLine("Invalid selection. Please choose a valid product number.");
         }
+
 }
 
 
@@ -254,5 +286,5 @@ void SearchByProductType()
 string ProductDetails(Product product)
 {
     string availability = product.Sold ? "not available" : "available";
-    return $"{product.Name} is ${product.Price} while belonging to category {product.ProductTypeId} and is {availability}.";
+    return $"{product.Name} is ${product.Price} while belonging to category {product.ProductTypeId} and is {availability}. It has been stocked for {product.DaysOnShelf} days.";
 }
